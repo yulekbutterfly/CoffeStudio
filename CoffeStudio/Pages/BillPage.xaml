@@ -1,0 +1,91 @@
+﻿<Window x:Class="CoffeStudio.Pages.BillPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeStudio.Pages"
+        mc:Ignorable="d"
+        Title="BillPage" Height="450" Width="800">
+    <Grid Background="#FFB9FCE0">
+        <Grid Background="White" Width="512" Height="400" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="0.2*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Список чеков" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                </Grid.ColumnDefinitions>
+                <Border Background="#FFEBEBEB" Margin="5,0,0,0"/>
+                <Border Grid.Column="1" Background="#FFCBF0E0" Margin="5,0,0,0"/>
+                <Border Grid.Column="2" Background="#FFCBF0E0" Margin="5,0,0,0"/>
+                <Border Grid.Column="3" Background="#FFCBF0E0" Margin="5,0,0,0"/>
+                <Border Grid.Column="4" Background="#FFCBF0E0" Margin="5,0,0,0"/>
+                <Border Grid.Column="5" Background="#FFCBF0E0" Margin="5,0,5,0"/>
+                <ScrollViewer Grid.ColumnSpan="6">
+                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                         x:Name="lvSeller" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.Resources>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListViewItem">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Margin="0 0 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
+                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                                    </Border>
+                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
+                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                    </Border>
+                                    <Border Grid.Column="2" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
+                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                    </Border>
+                                    <Border Grid.Column="3" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
+                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                    </Border>
+                                    <Border Grid.Column="4" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
+                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                    </Border>
+                                    <Border Grid.Column="5" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
+                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
