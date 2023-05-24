@@ -17,7 +17,7 @@ namespace CoffeStudio.Pages
     /// <summary>
     /// Логика взаимодействия для BillPage.xaml
     /// </summary>
-    public partial class BillPage : Window
+    public partial class BillPage : Page
     {
         public BillPage()
         {

@@ -10,10 +10,17 @@
         <Border CornerRadius="10" BorderThickness="4" Width="655" Height="595" Background="White" BorderBrush="Black">
             <StackPanel>
                 <TextBlock Text="МЕНЮ КАССЫ" HorizontalAlignment="Center" Margin="0,40,0,0" FontSize="22" FontFamily="Zing Rust Demo Base"></TextBlock>
-                <Button Style="{DynamicResource ButtonStyleMain}" Content="ОТКРЫТИЕ СМЕНЫ" Width="290" Height="72" Margin="0,25,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="{x:Null}" Background="#FF62E8B0"></Button>
-                <Button Style="{DynamicResource ButtonStyleMain}" Content="Отчет без гашения" Width="290" Height="72" Margin="0,25,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="{x:Null}" Background="#FF62E8B0"></Button>
-                <Button Style="{DynamicResource ButtonStyleMain}" Content="закрытие смены" Width="290" Height="72" Margin="0,25,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="{x:Null}" Background="#FF62E8B0"></Button>
-                <Button Style="{DynamicResource ButtonStyleMain}" Content="Регистрация продаж" Width="290" Height="72" Margin="0,25,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="{x:Null}" Background="#FF62E8B0"></Button>
+                <Button x:Name="OpenShiftBtn" Style="{DynamicResource ButtonStyleMain}" Content="ОТКРЫТИЕ СМЕНЫ" Width="290" Height="72" Margin="0,25,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="{x:Null}" Background="#FF62E8B0" Click="OpenShiftBtn_Click"></Button>
+                <Button x:Name="ReportBtn" Style="{DynamicResource ButtonStyleMain}" Content="Отчет без гашения" Width="290" Height="72" Margin="0,25,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="{x:Null}" Background="#FF62E8B0" Click="ReportBtn_Click"></Button>
+                <Button x:Name="CloseShiftBtn" Style="{DynamicResource ButtonStyleMain}" Content="закрытие смены" Width="290" Height="72" Margin="0,25,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="{x:Null}" Background="#FF62E8B0" Click="CloseShiftBtn_Click"></Button>
+                <Button x:Name="SellingBtn" Style="{DynamicResource ButtonStyleMain}" Content="Регистрация продаж" Width="290" Height="72" Margin="0,25,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="{x:Null}" Background="#FF62E8B0" Click="SellingBtn_Click"></Button>
+            </StackPanel>
+        </Border>
+        <Border  x:Name="PlugBrd" Visibility="Collapsed" Background="#02000000"/>
+        <Border Visibility="Collapsed" x:Name="NotificationMainMenuBrd"  BorderThickness="4" Width="550" Height="250" Background="White" BorderBrush="Black">
+            <StackPanel>
+                <TextBlock Text="Вы не можете регистрировать продажи,                                  так как смена закртыта" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" TextWrapping="Wrap"></TextBlock>
+                <Button x:Name="CloseNoticeBtn" Style="{DynamicResource ButtonStyleMain}" Content="Назад" Width="290" Height="50" Margin="0,60,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" Click="CloseNoticeBtn_Click"/>
             </StackPanel>
         </Border>
     </Grid>

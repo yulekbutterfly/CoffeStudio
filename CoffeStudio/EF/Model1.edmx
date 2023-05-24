@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Cash_RegisterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="IDCategory" />
+          </Key>
+          <Property Name="IDCategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="IDClient" />
+          </Key>
+          <Property Name="IDClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Bonus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="IDDish" />
+          </Key>
+          <Property Name="IDDish" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DishTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IDCategory" Type="int" Nullable="false" />
+          <Property Name="WeightInGrams" Type="int" />
+          <Property Name="VolumeInMililitres" Type="int" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Remains" Type="int" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="IDEmployee" />
+          </Key>
+          <Property Name="IDEmployee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDPosition" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="IDOrder" />
+          </Key>
+          <Property Name="IDOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDEmployee" Type="int" Nullable="false" />
+          <Property Name="IDClient" Type="int" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="Discount" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsItPostponet" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderDish">
+          <Key>
+            <PropertyRef Name="IDOrderDish" />
+          </Key>
+          <Property Name="IDOrderDish" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDDish" Type="int" Nullable="false" />
+          <Property Name="Quntity" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IDOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="IDPosition" />
+          </Key>
+          <Property Name="IDPosition" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PositionTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Dish_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="IDCategory" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="IDCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dish_Category1">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="IDCategory" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="IDCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="IDPosition" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IDPosition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IDClient" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IDClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IDEmployee" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IDEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDish_Dish">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="1" />
+          <End Role="OrderDish" Type="Self.OrderDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="IDDish" />
+            </Principal>
+            <Dependent Role="OrderDish">
+              <PropertyRef Name="IDDish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDish_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderDish" Type="Self.OrderDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="IDOrder" />
+            </Principal>
+            <Dependent Role="OrderDish">
+              <PropertyRef Name="IDOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище Cash_RegisterModelContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDish" EntityType="Self.OrderDish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dish_Category" Association="Self.FK_Dish_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dish_Category1" Association="Self.FK_Dish_Category1">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDish_Dish" Association="Self.FK_OrderDish_Dish">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="OrderDish" EntitySet="OrderDish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDish_Order" Association="Self.FK_OrderDish_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderDish" EntitySet="OrderDish" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Cash_RegisterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Category" EntityType="Cash_RegisterModel.Category" />
+          <EntitySet Name="Client" EntityType="Cash_RegisterModel.Client" />
+          <EntitySet Name="Dish" EntityType="Cash_RegisterModel.Dish" />
+          <EntitySet Name="Employee" EntityType="Cash_RegisterModel.Employee" />
+          <EntitySet Name="Order" EntityType="Cash_RegisterModel.Order" />
+          <EntitySet Name="OrderDish" EntityType="Cash_RegisterModel.OrderDish" />
+          <EntitySet Name="Position" EntityType="Cash_RegisterModel.Position" />
+          <EntitySet Name="sysdiagrams" EntityType="Cash_RegisterModel.sysdiagrams" />
+          <AssociationSet Name="FK_Dish_Category" Association="Cash_RegisterModel.FK_Dish_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dish_Category1" Association="Cash_RegisterModel.FK_Dish_Category1">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Client" Association="Cash_RegisterModel.FK_Order_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDish_Dish" Association="Cash_RegisterModel.FK_OrderDish_Dish">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="OrderDish" EntitySet="OrderDish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Position" Association="Cash_RegisterModel.FK_Employee_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="Cash_RegisterModel.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDish_Order" Association="Cash_RegisterModel.FK_OrderDish_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderDish" EntitySet="OrderDish" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="IDCategory" />
+          </Key>
+          <Property Name="IDCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dish" Relationship="Cash_RegisterModel.FK_Dish_Category" FromRole="Category" ToRole="Dish" />
+          <NavigationProperty Name="Dish1" Relationship="Cash_RegisterModel.FK_Dish_Category1" FromRole="Category" ToRole="Dish" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="IDClient" />
+          </Key>
+          <Property Name="IDClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Bonus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Cash_RegisterModel.FK_Order_Client" FromRole="Client" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="IDDish" />
+          </Key>
+          <Property Name="IDDish" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DishTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="IDCategory" Type="Int32" Nullable="false" />
+          <Property Name="WeightInGrams" Type="Int32" />
+          <Property Name="VolumeInMililitres" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Remains" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Cash_RegisterModel.FK_Dish_Category" FromRole="Dish" ToRole="Category" />
+          <NavigationProperty Name="Category1" Relationship="Cash_RegisterModel.FK_Dish_Category1" FromRole="Dish" ToRole="Category" />
+          <NavigationProperty Name="OrderDish" Relationship="Cash_RegisterModel.FK_OrderDish_Dish" FromRole="Dish" ToRole="OrderDish" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="IDEmployee" />
+          </Key>
+          <Property Name="IDEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDPosition" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Position" Relationship="Cash_RegisterModel.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
+          <NavigationProperty Name="Order" Relationship="Cash_RegisterModel.FK_Order_Employee" FromRole="Employee" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="IDOrder" />
+          </Key>
+          <Property Name="IDOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEmployee" Type="Int32" Nullable="false" />
+          <Property Name="IDClient" Type="Int32" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsItPostponet" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Cash_RegisterModel.FK_Order_Client" FromRole="Order" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="Cash_RegisterModel.FK_Order_Employee" FromRole="Order" ToRole="Employee" />
+          <NavigationProperty Name="OrderDish" Relationship="Cash_RegisterModel.FK_OrderDish_Order" FromRole="Order" ToRole="OrderDish" />
+        </EntityType>
+        <EntityType Name="OrderDish">
+          <Key>
+            <PropertyRef Name="IDOrderDish" />
+          </Key>
+          <Property Name="IDOrderDish" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDDish" Type="Int32" Nullable="false" />
+          <Property Name="Quntity" Type="Int32" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="IDOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dish" Relationship="Cash_RegisterModel.FK_OrderDish_Dish" FromRole="OrderDish" ToRole="Dish" />
+          <NavigationProperty Name="Order" Relationship="Cash_RegisterModel.FK_OrderDish_Order" FromRole="OrderDish" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="IDPosition" />
+          </Key>
+          <Property Name="IDPosition" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PositionTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Cash_RegisterModel.FK_Employee_Position" FromRole="Position" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Dish_Category">
+          <End Type="Cash_RegisterModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="Cash_RegisterModel.Dish" Role="Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="IDCategory" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="IDCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dish_Category1">
+          <End Type="Cash_RegisterModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="Cash_RegisterModel.Dish" Role="Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="IDCategory" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="IDCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Client">
+          <End Type="Cash_RegisterModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="Cash_RegisterModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="IDClient" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IDClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDish_Dish">
+          <End Type="Cash_RegisterModel.Dish" Role="Dish" Multiplicity="1" />
+          <End Type="Cash_RegisterModel.OrderDish" Role="OrderDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="IDDish" />
+            </Principal>
+            <Dependent Role="OrderDish">
+              <PropertyRef Name="IDDish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Position">
+          <End Type="Cash_RegisterModel.Position" Role="Position" Multiplicity="1" />
+          <End Type="Cash_RegisterModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="IDPosition" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IDPosition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Employee">
+          <End Type="Cash_RegisterModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Cash_RegisterModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IDEmployee" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IDEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDish_Order">
+          <End Type="Cash_RegisterModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="Cash_RegisterModel.OrderDish" Role="OrderDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="IDOrder" />
+            </Principal>
+            <Dependent Role="OrderDish">
+              <PropertyRef Name="IDOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Cash_RegisterModelContainer" CdmEntityContainer="Entities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище Cash_RegisterModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище Cash_RegisterModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище Cash_RegisterModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище Cash_RegisterModel.sp_helpdiagramdefinition" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище Cash_RegisterModel.sp_helpdiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище Cash_RegisterModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище Cash_RegisterModel.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="Cash_RegisterModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryTitle" ColumnName="CategoryTitle" />
+                <ScalarProperty Name="IDCategory" ColumnName="IDCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="Cash_RegisterModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dish">
+            <EntityTypeMapping TypeName="Cash_RegisterModel.Dish">
+              <MappingFragment StoreEntitySet="Dish">
+                <ScalarProperty Name="Remains" ColumnName="Remains" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="VolumeInMililitres" ColumnName="VolumeInMililitres" />
+                <ScalarProperty Name="WeightInGrams" ColumnName="WeightInGrams" />
+                <ScalarProperty Name="IDCategory" ColumnName="IDCategory" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="DishTitle" ColumnName="DishTitle" />
+                <ScalarProperty Name="IDDish" ColumnName="IDDish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="Cash_RegisterModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="Cash_RegisterModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="IsItPostponet" ColumnName="IsItPostponet" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
+                <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
+                <ScalarProperty Name="IDOrder" ColumnName="IDOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDish">
+            <EntityTypeMapping TypeName="Cash_RegisterModel.OrderDish">
+              <MappingFragment StoreEntitySet="OrderDish">
+                <ScalarProperty Name="IDOrder" ColumnName="IDOrder" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Quntity" ColumnName="Quntity" />
+                <ScalarProperty Name="IDDish" ColumnName="IDDish" />
+                <ScalarProperty Name="IDOrderDish" ColumnName="IDOrderDish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Position">
+            <EntityTypeMapping TypeName="Cash_RegisterModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="PositionTitle" ColumnName="PositionTitle" />
+                <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Cash_RegisterModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

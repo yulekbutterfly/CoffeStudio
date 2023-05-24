@@ -5,11 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeStudio.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="690" d:DesignWidth="1024"
       Title="SellerPage">
 
     <Grid Background="#FFB9FCE0">
-        <Border Visibility="Collapsed" CornerRadius="10" BorderThickness="4" Width="450" Height="200" Background="White" BorderBrush="Black" Panel.ZIndex="1">
+        <Border  x:Name="PlugBrd" Visibility="Collapsed" Background="#02000000"/>
+        <Border x:Name="PassBrd" Visibility="Collapsed" CornerRadius="10" BorderThickness="4" Width="450" Height="200" Background="White" BorderBrush="Black" Panel.ZIndex="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -17,18 +18,19 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Введите пароль" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                <TextBlock Visibility="Hidden" Text="Неверный пароль попробуйте снова" HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="15" Grid.RowSpan="3" Foreground="#FFFF0808"></TextBlock>
-                <PasswordBox Grid.Row="1" Height="50" Width="350" Background="#FFD9D9D9" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" ></PasswordBox>
-                <Button Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="ГОТОВО" Width="150" Height="45" Margin="0,0,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0"></Button>
+                <TextBlock x:Name="IncorrectPassTb" Visibility="Hidden" Text="Неверный пароль попробуйте снова" HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="15" Grid.RowSpan="3" Foreground="#FFFF0808"></TextBlock>
+                <PasswordBox x:Name="PassPb" Grid.Row="1" Height="50" Width="350" Background="#FFD9D9D9" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" ></PasswordBox>
+                <Button x:Name="CancelBtn" Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="ОТМЕНА" Width="150" Height="45" Margin="40,0,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFFCB9B9" HorizontalAlignment="Left" Click="CancelBtn_Click"></Button>
+                <Button x:Name="CheckPassBtn" Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="ГОТОВО" Width="150" Height="45" Margin="0,0,40,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right" Click="CheckPassBtn_Click"></Button>
             </Grid>
         </Border>
-        <Grid Background="White" Width="512" Height="400" >
+        <Grid Background="White" Width="800" Height="600" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="0.2*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Список продавцов" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+            <TextBlock Text="Список продавцов" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="25" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.1*"/>
@@ -37,12 +39,12 @@
                 <Border Background="#FFEBEBEB"/>
                 <Border Grid.Column="1" Background="#FFCBF0E0"/>
                 <ScrollViewer Grid.ColumnSpan="4">
-                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    <ListView Panel.ZIndex="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
-                         x:Name="lvSeller" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
+                         x:Name="lvSellers" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="lvSellers_MouseDoubleClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel/>
+                                <StackPanel Orientation="Vertical"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.Resources>
@@ -65,15 +67,14 @@
                     Grid.ColumnSpan="3"
                     Margin="0 0 0 0">
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.1*"/>
                                         <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="1.5*"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
-                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                                        <TextBlock Text="{Binding IDEmployee}" Foreground="Black" HorizontalAlignment="Center" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
                                     </Border>
                                     <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
-                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                        <TextBlock Text="{Binding FullName}" Foreground="Black" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
                                     </Border>
                                 </Grid>
                             </DataTemplate>

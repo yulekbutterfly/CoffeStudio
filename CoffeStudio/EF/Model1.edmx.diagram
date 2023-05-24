@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="225cbaea932f40c792542eefb49509df" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="Cash_RegisterModel.Category" Width="1.5" PointX="3" PointY="9.5" />
+        <EntityTypeShape EntityType="Cash_RegisterModel.Client" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="Cash_RegisterModel.Dish" Width="1.5" PointX="5.25" PointY="8.875" />
+        <EntityTypeShape EntityType="Cash_RegisterModel.Employee" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="Cash_RegisterModel.Order" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="Cash_RegisterModel.OrderDish" Width="1.5" PointX="7.5" PointY="1.25" />
+        <EntityTypeShape EntityType="Cash_RegisterModel.Position" Width="1.5" PointX="0.75" PointY="1.625" />
+        <EntityTypeShape EntityType="Cash_RegisterModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" />
+        <AssociationConnector Association="Cash_RegisterModel.FK_Dish_Category" />
+        <AssociationConnector Association="Cash_RegisterModel.FK_Dish_Category1" />
+        <AssociationConnector Association="Cash_RegisterModel.FK_Order_Client" />
+        <AssociationConnector Association="Cash_RegisterModel.FK_OrderDish_Dish" />
+        <AssociationConnector Association="Cash_RegisterModel.FK_Employee_Position" />
+        <AssociationConnector Association="Cash_RegisterModel.FK_Order_Employee" />
+        <AssociationConnector Association="Cash_RegisterModel.FK_OrderDish_Order" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

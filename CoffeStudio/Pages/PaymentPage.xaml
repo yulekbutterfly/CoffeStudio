@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeStudio.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="690" d:DesignWidth="1024"
       Title="PaymentPage">
 
     <Grid Background="#FFB9FCE0">
@@ -13,7 +13,10 @@
             <ColumnDefinition Width="8*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Border Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="4" Width="450" Height="200" Background="White" BorderBrush="Black" Panel.ZIndex="1">
+
+        <Border  Panel.ZIndex="3" Grid.ColumnSpan="2" x:Name="PlugBrdNotice" Visibility="Collapsed" Background="#02000000"/>
+        <Border  Panel.ZIndex="1" Grid.ColumnSpan="2" x:Name="PlugBrd" Visibility="Collapsed" Background="#02000000"/>
+        <Border x:Name="PhoneBrd" Panel.ZIndex="2" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="4" Width="450" Height="200" Background="White" BorderBrush="Black" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -21,12 +24,12 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Введите НОМЕР ТЕЛЕФОНА" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                <TextBox Grid.Row="1" Height="50" Width="350" Background="#FFD9D9D9" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" ></TextBox>
-                <Button Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="ОТМЕНА" Width="150" Height="45" Margin="40,0,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFFCB9B9" HorizontalAlignment="Left"></Button>
-                <Button Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="ГОТОВО" Width="150" Height="45" Margin="0,0,40,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right"></Button>
+                <TextBox x:Name="tbPhone" Grid.Row="1" Height="50" Width="350" VerticalContentAlignment="Center" Background="#FFD9D9D9" FontSize="22" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" PreviewTextInput="tbPhone_PreviewTextInput"></TextBox>
+                <Button x:Name="CancelBtn" Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="ОТМЕНА" Width="150" Height="45" Margin="40,0,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFFCB9B9" HorizontalAlignment="Left" Click="CancelBtn_Click"></Button>
+                <Button x:Name="OKBtn" Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="ГОТОВО" Width="150" Height="45" Margin="0,0,40,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right" Click="OKBtn_Click"></Button>
             </Grid>
         </Border>
-        <Border Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="4" Width="450" Height="400" Background="White" BorderBrush="Black" Panel.ZIndex="1">
+        <Border x:Name="RegisterBrd" Panel.ZIndex="2" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="4" Width="450" Height="400" Background="White" BorderBrush="Black" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -36,21 +39,21 @@
                 </Grid.RowDefinitions>
                 <StackPanel HorizontalAlignment="Center">
                     <TextBlock Text="НОМЕР ТЕЛЕФОНА" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                    <TextBlock Text="88005353535" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                    <TextBox x:Name="tbRegisterPhone" Text="88005353535" Height="50" Width="350" VerticalContentAlignment="Center" Background="#FFD9D9D9" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBox>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" Grid.Row="1">
                     <TextBlock Text="иМЯ" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                    <TextBox Grid.Row="1" Height="50" Width="350" Background="#FFD9D9D9" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" Margin="0,10,0,0" ></TextBox>
+                    <TextBox x:Name="tbRegistrationName" Grid.Row="1" Height="50" VerticalContentAlignment="Center" Width="350" Background="#FFD9D9D9" FontSize="22" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" Margin="0,10,0,0" PreviewTextInput="textBoxes_PreviewTextInput"></TextBox>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" Grid.Row="2">
                     <TextBlock Text="дАТА РОЖДЕНИЯ" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                    <DatePicker Grid.Row="1" Height="50" Width="350" Background="{x:Null}" FontFamily="Zing Rust Demo Base"  BorderBrush="{x:Null}" Margin="0,10,0,0" ></DatePicker>
+                    <DatePicker x:Name="dpBirthday" Grid.Row="1" Height="50" Width="350" Background="{x:Null}" FontFamily="Zing Rust Demo Base"  BorderBrush="{x:Null}" Margin="0,10,0,0" ></DatePicker>
                 </StackPanel>
-                <Button Grid.Row="3" Style="{DynamicResource ButtonStyleMain}" Content="ОТМЕНА" Width="150" Height="45" Margin="40,0,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFFCB9B9" HorizontalAlignment="Left"></Button>
-                <Button Grid.Row="3" Style="{DynamicResource ButtonStyleMain}" Content="ГОТОВО" Width="150" Height="45" Margin="0,0,40,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right"></Button>
+                <Button x:Name="CancelRegistrationBtn" Grid.Row="3" Style="{DynamicResource ButtonStyleMain}" Content="ОТМЕНА" Width="150" Height="45" Margin="40,0,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFFCB9B9" HorizontalAlignment="Left" Click="CancelRegistrationBtn_Click"></Button>
+                <Button x:Name="OKRegistrationBtn" Grid.Row="3" Style="{DynamicResource ButtonStyleMain}" Content="ГОТОВО" Width="150" Height="45" Margin="0,0,40,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right" Click="OKRegistrationBtn_Click"></Button>
             </Grid>
         </Border>
-        <Border Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="4" Width="450" Height="400" Background="White" BorderBrush="Black" Panel.ZIndex="1">
+        <Border x:Name="BonusesBrd" Panel.ZIndex="2" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="10" BorderThickness="4" Width="450" Height="400" Background="White" BorderBrush="Black">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -59,49 +62,55 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <WrapPanel Margin="29,0,0,0">
-                    <StackPanel HorizontalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Left" Width="200">
                         <TextBlock Text="иМЯ" HorizontalAlignment="Left" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                        <TextBlock Text="иМЯ ФАМИЛИЯ ОТЧЕСТВО" HorizontalAlignment="Left" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                        <TextBlock x:Name="tbClientName" Text="Имя" HorizontalAlignment="Left" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Right">
                         <TextBlock Text="кОЛИЧЕСТВО БОНУСОВ" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                        <TextBlock Text="123456" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                        <TextBlock x:Name="tbClientBonuses" Text="123456" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
                     </StackPanel>
                 </WrapPanel>
                 <WrapPanel Margin="29,0,0,0" Grid.Row="1">
                     <StackPanel HorizontalAlignment="Left">
                         <TextBlock Text="К списанию" HorizontalAlignment="Left" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                        <TextBox Grid.Row="1" Height="50" Width="100" Background="#FFD9D9D9" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" Margin="-5,10,0,0" ></TextBox>
+                        <TextBox x:Name="tbUseBonuses" Grid.Row="1" Height="50" Width="100" Background="#FFD9D9D9" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" Margin="-5,10,0,0" ></TextBox>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Margin="135,0,0,0">
                         <TextBlock Text="Номер телефона" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                        <TextBlock Text="88005353535" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                        <TextBlock x:Name="tbClientPhone" Text="88005353535" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
                     </StackPanel>
                 </WrapPanel>
                 <StackPanel HorizontalAlignment="Center" Grid.Row="2" Margin="244,0,0,0">
                     <TextBlock Text="дАТА РОЖДЕНИЯ" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                    <TextBlock Text="01.01.1991" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                    <TextBlock x:Name="tbClientBirthday" Text="01.01.1991" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
                 </StackPanel>
                 <WrapPanel Grid.Row="3" VerticalAlignment="Center">
-                    <Button  Style="{DynamicResource ButtonStyleMain}" Content="ОТМЕНА" Width="120" Height="40" Margin="20,0,0,0" FontSize="20" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFFCB9B9" HorizontalAlignment="Left"></Button>
-                    <Button Grid.Row="3" Style="{DynamicResource ButtonStyleMain}" Content="Списать" Width="120" Height="40" Margin="20,0,0,0" FontSize="20" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right"></Button>
-                    <Button Grid.Row="3" Style="{DynamicResource ButtonStyleMain}" Content="Начислить" Width="120" Height="40" Margin="20,0,0,0" FontSize="20" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right"></Button>
+                    <Button x:Name="CancelBonusesBtn" Style="{DynamicResource ButtonStyleMain}" Content="ОТМЕНА" Width="120" Height="40" Margin="20,0,0,0" FontSize="20" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFFCB9B9" HorizontalAlignment="Left" Click="CancelBonusesBtn_Click"></Button>
+                    <Button x:Name="btnUseBonuses" Grid.Row="3" Style="{DynamicResource ButtonStyleMain}" Content="Списать" Width="120" Height="40" Margin="20,0,0,0" FontSize="20" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right" Click="btnUseBonuses_Click"></Button>
+                    <Button x:Name="btnGetBonuses" Grid.Row="3" Style="{DynamicResource ButtonStyleMain}" Content="Начислить" Width="120" Height="40" Margin="20,0,0,0" FontSize="20" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right" Click="btnGetBonuses_Click"></Button>
                 </WrapPanel>
             </Grid>
         </Border>
-        <Grid Background="White" Margin="60,10,10,40" >
+        <Border Panel.ZIndex="4" Visibility="Collapsed" x:Name="NotificationBrd"  BorderThickness="4" Width="550" Height="250" Background="White" BorderBrush="Black">
+            <StackPanel>
+                <TextBlock x:Name="tbNotification" Text="Вы не можете регистрировать продажи,                                  так как смена закртыта" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" TextWrapping="Wrap"></TextBlock>
+                <Button x:Name="CloseNoticeBtn" Style="{DynamicResource ButtonStyleMain}" Content="Назад" Width="290" Height="50" Margin="0,60,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" Click="CloseNoticeBtn_Click"/>
+            </StackPanel>
+        </Border>
+        <Grid Panel.ZIndex="0" Background="White" Margin="60,10,10,40" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="МЕНЮ КАССЫ" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+            <TextBlock Text="МЕНЮ КАССЫ" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="25" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="0.2*"/>
-                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="44.5"/>
+                    <ColumnDefinition Width="421"/>
+                    <ColumnDefinition Width="84"/>
+                    <ColumnDefinition Width="128"/>
                 </Grid.ColumnDefinitions>
                 <Border Background="#FFEBEBEB"/>
                 <Border Grid.Column="1" Background="#FFCBF0E0"/>
@@ -113,7 +122,7 @@
                          x:Name="lvOrder" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel/>
+                                <StackPanel Orientation="Vertical"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.Resources>
@@ -136,21 +145,22 @@
                     Grid.ColumnSpan="3"
                     Margin="0 0 0 0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="1.5*"/>
+                                        <ColumnDefinition Width="42"/>
+                                        <ColumnDefinition Width="421"/>
+                                        <ColumnDefinition Width="84"/>
+                                        <ColumnDefinition Width="110"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
-                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                                        <TextBlock Foreground="Black" Text="{Binding IDDish}" HorizontalAlignment="Center" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
                                     </Border>
                                     <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
-                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Radiotechnika" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                        <TextBlock Foreground="Black" Text="{Binding DishTitle}" HorizontalAlignment="Center" FontSize="14" FontFamily="Radiotechnika" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
                                     </Border>
                                     <Border Grid.Column="2" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
-                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                        <TextBlock Foreground="Black" Text="{Binding qty}" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
                                     </Border>
                                     <Border Grid.Column="3" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top">
-                                        <TextBlock Text="" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                        <TextBlock Foreground="Black" Text="{Binding sum}" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
                                     </Border>
                                 </Grid>
                             </DataTemplate>
@@ -159,11 +169,11 @@
                 </ScrollViewer>
             </Grid>
             <WrapPanel Grid.Row="2" VerticalAlignment="Center">
-                <Button Content="Отложить чек" Width="180" FontSize="16" Margin="20,0,0,0" FontFamily="Zing Rust Demo Base" Background="#FFB9FCE0"></Button>
-                <Button Content="пРОДОЛЖИТЬ чек" Width="180" FontSize="16" Margin="110,0,0,0" FontFamily="Zing Rust Demo Base" Background="#FFB9FCE0"></Button>
+                <Button Content="Отложить чек" Width="200" FontSize="20" Margin="20,0,0,0" FontFamily="Zing Rust Demo Base" Background="#FFB9FCE0"></Button>
+                <Button Content="пРОДОЛЖИТЬ чек" Width="200" FontSize="20" Margin="230,0,0,0" FontFamily="Zing Rust Demo Base" Background="#FFB9FCE0"></Button>
             </WrapPanel>
         </Grid>
-        <Grid Grid.Column="1" Margin="10,19,10,40" Background="White">
+        <Grid Panel.ZIndex="0" Grid.Column="1" Margin="10,19,10,40" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -176,33 +186,33 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.ColumnSpan="2" Text="Итого :" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="25" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="12345678 рублей" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="18" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-            <Button  Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource ButtonStyleMain}" Content="Скидка" Width="120" Height="40" Margin="0,0,0,0" FontSize="20" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Center"></Button>
-            <TextBlock Visibility="Collapsed" Grid.Row="2" Grid.ColumnSpan="2" Text="Скидка 0%" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="18" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" Foreground="#FFE74731"></TextBlock>
+            <TextBlock Grid.ColumnSpan="2" Text="Итого :" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="30" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+            <TextBlock x:Name="tbPrice" Grid.Row="1" Grid.ColumnSpan="2" Text="0 рублей" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+            <Button x:Name="SaleBtn"  Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource ButtonStyleMain}" Content="Скидка" Width="150" Height="50" Margin="0,0,0,0" FontSize="25" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Center" Click="SaleBtn_Click"></Button>
+            <TextBlock x:Name="tbNumberOfSale" Visibility="Collapsed" Grid.Row="2" Grid.ColumnSpan="2" Text="Скидка 0%" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="18" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" Foreground="#FFE74731"></TextBlock>
             <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
-                <TextBlock Grid.ColumnSpan="2" Text="к оплате :" Margin="20,60,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                <TextBlock Grid.ColumnSpan="2" Text="123456789 рублей" Margin="20,0,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                <TextBlock Grid.ColumnSpan="2" Text="к оплате :" Margin="20,60,0,0" FontSize="25" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                <TextBlock x:Name="tbTotalPrice" Grid.ColumnSpan="2" Text="0 рублей" Margin="20,0,0,0" FontSize="25" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
             </StackPanel>
-            <Button Grid.Row="4" Grid.Column="0" FontSize="18" FontFamily="Zing Rust Demo Base" HorizontalContentAlignment="Center" BorderBrush="#FF8FEF87" Background="#FF8FEF87">
+            <Button x:Name="CashPayBtn" Grid.Row="3" Grid.Column="0" FontSize="18" FontFamily="Zing Rust Demo Base" HorizontalContentAlignment="Center" BorderBrush="#FF8FEF87" Background="#FF8FEF87" Grid.ColumnSpan="2" Height="112" Margin="0,222,129,0" Grid.RowSpan="3" VerticalAlignment="Top" Click="CashPayBtn_Click">
                 <TextBlock
                  TextWrapping="Wrap"
-                    FontSize="16" FontFamily="Zing Rust Demo Base"
+                    FontSize="20" FontFamily="Zing Rust Demo Base"
                     Text="    Оплата наличными" VerticalAlignment="Center" HorizontalAlignment="Center"
                     >
 
                 </TextBlock>
             </Button>
-            <Button Grid.Row="4" Grid.Column="1" FontSize="18" FontFamily="Zing Rust Demo Base" HorizontalContentAlignment="Center" BorderBrush="#FF8FEF87" Background="#FF84ACFB">
+            <Button x:Name="CardPayBtn" Grid.Row="3" Grid.Column="1" FontSize="18" FontFamily="Zing Rust Demo Base" HorizontalContentAlignment="Center" BorderBrush="#FF8FEF87" Background="#FF84ACFB" Height="112" Margin="0,222,0,0" Grid.RowSpan="3" VerticalAlignment="Top" Click="CardPayBtn_Click">
                 <TextBlock
                  TextWrapping="Wrap"
-                    FontSize="16" FontFamily="Zing Rust Demo Base"
+                    FontSize="20" FontFamily="Zing Rust Demo Base"
                     Text="Оплата  картой" VerticalAlignment="Center" HorizontalAlignment="Center"
                     >
 
                 </TextBlock>
             </Button>
-            <Button Grid.Row="5" Grid.ColumnSpan="2" FontSize="18" FontFamily="Zing Rust Demo Base" HorizontalContentAlignment="Center" BorderBrush="#FF8FEF87">
+            <Button x:Name="ComplexPaymentBtn" Grid.Row="5" Grid.ColumnSpan="2" FontSize="18" FontFamily="Zing Rust Demo Base" HorizontalContentAlignment="Center" BorderBrush="#FF8FEF87" Click="ComplexPaymentBtn_Click">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0" SpreadMethod="Pad" MappingMode="RelativeToBoundingBox">
                         <GradientStop Color="#FF8FEF87" Offset="1"/>
@@ -211,12 +221,42 @@
                 </Button.Background>
                 <TextBlock
                  TextWrapping="Wrap"
-                    FontSize="16" FontFamily="Zing Rust Demo Base"
+                    FontSize="20" FontFamily="Zing Rust Demo Base"
                     Text="Сложная оплата" VerticalAlignment="Center" HorizontalAlignment="Center"
                     >
 
                 </TextBlock>
             </Button>
         </Grid>
+        <Border Grid.ColumnSpan="2" Panel.ZIndex="2" x:Name="PayBrd" Visibility="Collapsed" Background="#FFD7FBEC" BorderBrush="#FF04FF95" Height="500" Width="700" CornerRadius="20" BorderThickness="7">
+            <StackPanel Margin="0,40,0,0">
+                <TextBlock x:Name="tbTypeOfPay" Text="Оплата наличными" HorizontalAlignment="Center" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center"></TextBlock>
+                <Border Background="White" CornerRadius="10" Height="60" Width="600" HorizontalAlignment="Left" Margin="20 30 0 0">
+                    <Grid>
+                        <TextBlock Text="к оплате" HorizontalAlignment="Left" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center" Margin=" 20 0 0 0 "></TextBlock>
+                        <TextBlock x:Name="CashToPaytb" Text="9999" HorizontalAlignment="Right" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center" Margin="0 0 20 0 "></TextBlock>
+                    </Grid>
+                </Border>
+                <Border x:Name="InputedBrd" Visibility="Visible" Background="White" CornerRadius="10" Height="60" Width="600" HorizontalAlignment="Left" Margin="20 30 0 0">
+                    <Grid>
+                        <TextBlock Text="Внесено" HorizontalAlignment="Left" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center" Margin=" 20 0 0 0 "></TextBlock>
+                        <TextBox x:Name="tbInserted" Width="100" Background="#FFD9D9D9" HorizontalAlignment="Right" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center" Margin="0 0 20 0 " PreviewTextInput="tbPhone_PreviewTextInput" TextChanged="tbInserted_TextChanged"></TextBox>
+                    </Grid>
+                </Border>
+                <Border x:Name="RemainCashBrd" Visibility="Visible" Background="White" CornerRadius="10" Height="60" Width="600" HorizontalAlignment="Left" Margin="20 30 0 0">
+                    <Grid>
+                        <TextBlock x:Name="RemainCashTitleTb" Text="Сдача" HorizontalAlignment="Left" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center" Margin=" 20 0 0 0 "></TextBlock>
+                        <TextBlock x:Name="RemainCashTb" HorizontalAlignment="Right" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center" Margin="0 0 20 0 "></TextBlock>
+                    </Grid>
+                </Border>
+                <WrapPanel Grid.Row="2" Visibility="Visible">
+                    <Button x:Name="CancelPayBtn" Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="ОТМЕНА" Width="150" Height="45" Margin="100,40,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFFCB9B9" HorizontalAlignment="Left" Click="CancelPayBtn_Click"></Button>
+                    <Button x:Name="PayOKBtn" Style="{DynamicResource ButtonStyleMain}" Content="Подтвердить" Width="150" Height="45" Margin="140,40,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Center" Click="PayOKBtn_Click"></Button>
+                </WrapPanel>
+                <Image Visibility="Collapsed" x:Name="imgResult" Width="300" Source="/Images/PayOK.png"/>
+
+
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

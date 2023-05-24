@@ -20,9 +20,48 @@ namespace CoffeStudio
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool IsSessionOpened=false;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void OpenShiftBtn_Click(object sender, RoutedEventArgs e)
+        {
+            IsSessionOpened = true;
+        }
+
+        private void ReportBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CloseShiftBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SellingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(IsSessionOpened)
+            {
+                CashBoxWindow cashBoxWindow = new CashBoxWindow();
+                this.Hide();
+                cashBoxWindow.ShowDialog();
+                this.ShowDialog();
+            }
+            else
+            {
+                PlugBrd.Visibility = Visibility.Visible;
+                NotificationMainMenuBrd.Visibility = Visibility.Visible;
+            }
+            
+        }
+
+        private void CloseNoticeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PlugBrd.Visibility = Visibility.Collapsed;
+            NotificationMainMenuBrd.Visibility = Visibility.Collapsed;
         }
     }
 }
