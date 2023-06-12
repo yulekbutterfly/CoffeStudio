@@ -50,6 +50,10 @@ namespace CoffeStudio.Pages
             timer.Tick += ResultTimer;
             timerOK.Interval = TimeSpan.FromSeconds(5);
             timerOK.Tick += ResultTimerOK;
+
+            PayOKBtn.IsEnabled = false;
+
+            GlobalVariables.UsedEmployee = AppData.Context.Employee.Where(i=>i.IDEmployee==1).FirstOrDefault();
         }
 
         private void SaleBtn_Click(object sender, RoutedEventArgs e)
@@ -60,10 +64,9 @@ namespace CoffeStudio.Pages
 
         private void tbPhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !(Char.IsDigit(e.Text, 0));
-            if (e.Text == " ")
+            if (!Char.IsDigit(e.Text, 0) || e.Text.Contains(" "))
             {
-                e.Handled = true; // Запретить ввод пробелов
+                e.Handled = true; // Запретить ввод символов, отличных от цифр
             }
         }
 
@@ -95,6 +98,7 @@ namespace CoffeStudio.Pages
                 GlobalVariables.GlobalClient = authUser;
                 PhoneBrd.Visibility = Visibility.Collapsed;
                 BonusesBrd.Visibility = Visibility.Visible;
+                btnUseBonuses.IsEnabled = false;
                 tbClientBonuses.Text = authUser.Bonus.ToString();
                 tbClientBirthday.Text = authUser.Birthday.ToString();
                 tbClientName.Text = authUser.FirstName;
@@ -154,6 +158,7 @@ namespace CoffeStudio.Pages
                 GlobalVariables.GlobalClient=newClient;
 
                 BonusesBrd.Visibility = Visibility.Visible;
+                btnUseBonuses.IsEnabled = false;
                 RegisterBrd.Visibility = Visibility.Collapsed;
                 tbRegisterPhone.Text = "";
                 tbRegistrationName.Text = "";
@@ -194,6 +199,7 @@ namespace CoffeStudio.Pages
                 tbClientName.Text = "ИМЯ?";
                 tbClientPhone.Text = "88888888888";
                 GlobalVariables.useBonuses = 1;
+                GlobalVariables.amountOfBonuses =0-Convert.ToInt32(tbUseBonuses.Text);
                 CountSale();
             }
             else
@@ -215,6 +221,7 @@ namespace CoffeStudio.Pages
             tbClientBirthday.Text = "Дата рождения?";
             tbClientName.Text = "ИМЯ?";
             tbClientPhone.Text = "88888888888";
+            GlobalVariables.amountOfBonuses = Convert.ToInt32(tbPrice.Text.Replace(" рублей", ""))/100;
             GlobalVariables.useBonuses = 0;
         }
 
@@ -245,9 +252,12 @@ namespace CoffeStudio.Pages
         {
             PlugBrd.Visibility = Visibility.Visible;
             PayBrd.Visibility = Visibility.Visible;
+            InputedBrd.Visibility = Visibility.Visible;
+            RemainCashBrd.Visibility = Visibility.Visible;
             tbTypeOfPay.Text = "Оплата наличными";
             CashToPaytb.Text = tbTotalPrice.Text.Replace(" рублей", "");
             RemainCashTb.Text = "0";
+            RemainCashTitleTb.Text = "Сдача";
             typeofPay = 1;
         }
 
@@ -266,6 +276,8 @@ namespace CoffeStudio.Pages
         {
             PlugBrd.Visibility = Visibility.Visible;
             PayBrd.Visibility = Visibility.Visible;
+            InputedBrd.Visibility = Visibility.Visible;
+            RemainCashBrd.Visibility = Visibility.Visible;
             CashToPaytb.Text = tbTotalPrice.Text.Replace(" рублей", "");
             RemainCashTitleTb.Text = "Картой";
             typeofPay = 3;
@@ -273,19 +285,29 @@ namespace CoffeStudio.Pages
 
         private void tbInserted_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(tbInserted.Text!="")
+            if(string.IsNullOrWhiteSpace(tbInserted.Text)==false && Convert.ToDecimal(tbInserted.Text) - Convert.ToDecimal(CashToPaytb.Text)>=0 && RemainCashTitleTb.Text=="Сдача")
             {
                 RemainCashTb.Text = (Convert.ToDecimal(tbInserted.Text) - Convert.ToDecimal(CashToPaytb.Text)).ToString();
-            }   
+                PayOKBtn.IsEnabled = true;
+            }
+            else if (string.IsNullOrWhiteSpace(tbInserted.Text) == false && Convert.ToDecimal(CashToPaytb.Text) - Convert.ToDecimal(tbInserted.Text) >= 0 && RemainCashTitleTb.Text == "Картой")
+            {
+                RemainCashTb.Text = (Convert.ToDecimal(CashToPaytb.Text) - Convert.ToDecimal(tbInserted.Text)).ToString();
+                PayOKBtn.IsEnabled = true;
+            }
+            else
+            {
+                RemainCashTb.Text = null;
+                PayOKBtn.IsEnabled = false;
+            }
         }
 
         private void PayOKBtn_Click(object sender, RoutedEventArgs e)
         {
-
             if (typeofPay == 1){
                 if(Convert.ToDecimal(RemainCashTb.Text)>=0)
                 {
-
+                    ExecuteOrder();
                 }
                 else
                 {
@@ -295,7 +317,6 @@ namespace CoffeStudio.Pages
                 }
             }
             if(typeofPay == 2) {
-
                 InputedBrd.Visibility = Visibility.Collapsed;
                 RemainCashBrd.Visibility = Visibility.Collapsed;
                 PayOKBtn.Visibility = Visibility.Collapsed;
@@ -328,6 +349,8 @@ namespace CoffeStudio.Pages
             PlugBrd.Visibility = Visibility.Collapsed;
             PayBrd.Visibility = Visibility.Collapsed;
             tbInserted.Text = null;
+            RemainCashTb.Text = null;
+            PayOKBtn.IsEnabled = false;
         }
 
         void EmulateCardPay()
@@ -339,7 +362,6 @@ namespace CoffeStudio.Pages
 
         public void ResultTimer(object sender, EventArgs e)
         {
-            // Остановить таймер
             timer.Stop();
 
             if (randomValue)
@@ -358,7 +380,6 @@ namespace CoffeStudio.Pages
         }
         public void ResultTimerOK(object sender, EventArgs e)
         {
-            // Остановить таймер
             timerOK.Stop();
 
             GlobalVariables.preOrderList=null;
@@ -368,6 +389,104 @@ namespace CoffeStudio.Pages
             tbNumberOfSale.Visibility = Visibility.Collapsed;
             SaleBtn.Visibility = Visibility.Visible;
             PayBrd.Visibility = Visibility.Collapsed;
+            ExecuteOrder();
+        }
+
+        void ExecuteOrder()
+        {
+            if(GlobalVariables.GlobalClient != null) {
+                EF.Order order = new EF.Order();
+                order.IDEmployee = GlobalVariables.UsedEmployee.IDEmployee;
+                order.IDClient = GlobalVariables.GlobalClient.IDClient;
+                order.DateTime = DateTime.Now;
+                order.Discount = (100-Convert.ToDecimal(tbTotalPrice.Text.Replace(" рублей", "")) /(Convert.ToDecimal(tbPrice.Text.Replace(" рублей", "")) /100));
+                order.IsDeleted = false;
+                order.IsItPostponet = false;
+                AppData.Context.Order.Add(order);
+                AppData.Context.SaveChanges();
+                foreach (GlobalVariables.preOrder Row in GlobalVariables.preOrderList)
+                {
+                    EF.OrderDish orderDish = new EF.OrderDish();
+                    orderDish.IDOrder = order.IDOrder;
+                    orderDish.IDDish = Row.IDDish;
+                    orderDish.Quntity = Row.qty;
+                    orderDish.TotalPrice = Row.Cost * Row.qty;
+                    AppData.Context.OrderDish.Add(orderDish);
+                }
+                GlobalVariables.GlobalClient.Bonus = GlobalVariables.GlobalClient.Bonus + GlobalVariables.amountOfBonuses;
+                AppData.Context.SaveChanges();
+
+                GlobalVariables.preOrderList = null;
+                GlobalVariables.GlobalClient = null;
+                GlobalVariables.useBonuses = -1;
+                GlobalVariables.amountOfBonuses = 0;
+
+                lvOrder.ItemsSource = GlobalVariables.preOrderList;
+                PayBrd.Visibility= Visibility.Collapsed;
+                RemainCashTb.Text = null;
+                tbPrice.Text = "0 рублей";
+                tbTotalPrice.Text="0 рублей";
+                SaleBtn.Visibility = Visibility.Visible;
+                PlugBrd.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                GlobalVariables.GlobalClient = AppData.Context.Client.Where(i => i.IDClient == 5).FirstOrDefault();
+                GlobalVariables.amountOfBonuses = Convert.ToInt32(Math.Round(Convert.ToDecimal(tbPrice.Text.Replace(" рублей", "")) / 100));
+                EF.Order order = new EF.Order();
+                order.IDEmployee = GlobalVariables.UsedEmployee.IDEmployee;
+                order.IDClient = GlobalVariables.GlobalClient.IDClient;
+                order.DateTime = DateTime.Now;
+                order.Discount = (100 - Convert.ToDecimal(tbTotalPrice.Text.Replace(" рублей", "")) / (Convert.ToDecimal(tbPrice.Text.Replace(" рублей", "")) / 100));
+                order.IsDeleted = false;
+                order.IsItPostponet = false;
+                AppData.Context.Order.Add(order);
+                AppData.Context.SaveChanges();
+                foreach (GlobalVariables.preOrder Row in GlobalVariables.preOrderList)
+                {
+                    EF.OrderDish orderDish = new EF.OrderDish();
+                    orderDish.IDOrder = order.IDOrder;
+                    orderDish.IDDish = Row.IDDish;
+                    orderDish.Quntity = Row.qty;
+                    orderDish.TotalPrice = Row.Cost * Row.qty;
+                    AppData.Context.OrderDish.Add(orderDish);
+                }               
+                GlobalVariables.GlobalClient.Bonus = GlobalVariables.GlobalClient.Bonus + GlobalVariables.amountOfBonuses;
+                AppData.Context.SaveChanges();
+
+                GlobalVariables.preOrderList = null;
+                GlobalVariables.GlobalClient = null;
+                GlobalVariables.useBonuses = -1;
+                GlobalVariables.amountOfBonuses = 0;
+
+                lvOrder.ItemsSource = GlobalVariables.preOrderList;
+                PayBrd.Visibility = Visibility.Collapsed;
+                RemainCashTb.Text = null;
+                tbPrice.Text = "0 рублей";
+                tbTotalPrice.Text = "0 рублей";
+                SaleBtn.Visibility = Visibility.Visible;
+                PlugBrd.Visibility = Visibility.Collapsed;
+            }
+            
+        }
+        private void tbUseBonuses_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true; // Запретить ввод пробела
+            }
+        }
+
+        private void tbUseBonuses_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbUseBonuses.Text) == false && Convert.ToDecimal(tbClientBonuses.Text)-Convert.ToDecimal(tbUseBonuses.Text) >= 0)
+            {
+                btnUseBonuses.IsEnabled = true;
+            }
+            else
+            {
+                btnUseBonuses.IsEnabled = false;
+            }
         }
     }
 }

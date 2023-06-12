@@ -56,7 +56,7 @@
           <Property Name="IDEmployee" Type="int" Nullable="false" />
           <Property Name="IDClient" Type="int" Nullable="false" />
           <Property Name="DateTime" Type="datetime" Nullable="false" />
-          <Property Name="Discount" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="Discount" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsItPostponet" Type="bit" Nullable="false" />
         </EntityType>
@@ -371,7 +371,7 @@
           <Property Name="IDEmployee" Type="Int32" Nullable="false" />
           <Property Name="IDClient" Type="Int32" Nullable="false" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="IsItPostponet" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Cash_RegisterModel.FK_Order_Client" FromRole="Order" ToRole="Client" />

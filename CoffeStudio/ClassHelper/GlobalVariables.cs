@@ -21,9 +21,11 @@ namespace CoffeStudio.ClassHelper
         }
         public static List<preOrder> preOrderList = new List<preOrder>();
 
-        public static EF.Client GlobalClient = new EF.Client();
+        public static EF.Client GlobalClient = null;
 
         public static int useBonuses = -1;
+
+        public static int amountOfBonuses = 0;
 
         public static EF.Employee UsedEmployee = new EF.Employee();
     }

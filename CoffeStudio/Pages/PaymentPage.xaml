@@ -74,7 +74,7 @@
                 <WrapPanel Margin="29,0,0,0" Grid.Row="1">
                     <StackPanel HorizontalAlignment="Left">
                         <TextBlock Text="К списанию" HorizontalAlignment="Left" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
-                        <TextBox x:Name="tbUseBonuses" Grid.Row="1" Height="50" Width="100" Background="#FFD9D9D9" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" BorderBrush="{x:Null}" Margin="-5,10,0,0" ></TextBox>
+                        <TextBox x:Name="tbUseBonuses" Grid.Row="1" Height="50" Width="100" Background="#FFD9D9D9" FontFamily="Zing Rust Demo Base" SelectionBrush="{x:Null}" PreviewTextInput="tbPhone_PreviewTextInput" BorderBrush="{x:Null}" Margin="-5,10,0,0" PreviewKeyDown="tbUseBonuses_PreviewKeyDown" TextChanged="tbUseBonuses_TextChanged"></TextBox>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Margin="135,0,0,0">
                         <TextBlock Text="Номер телефона" HorizontalAlignment="Right" Margin="0,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
@@ -117,7 +117,7 @@
                 <Border Grid.Column="2" Background="#FF5DEDB1"/>
                 <Border Grid.Column="3" Background="#FF99C5B2"/>
                 <ScrollViewer Grid.ColumnSpan="4">
-                    <ListView  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                          x:Name="lvOrder" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListView.ItemsPanel>
@@ -168,10 +168,7 @@
                     </ListView>
                 </ScrollViewer>
             </Grid>
-            <WrapPanel Grid.Row="2" VerticalAlignment="Center">
-                <Button Content="Отложить чек" Width="200" FontSize="20" Margin="20,0,0,0" FontFamily="Zing Rust Demo Base" Background="#FFB9FCE0"></Button>
-                <Button Content="пРОДОЛЖИТЬ чек" Width="200" FontSize="20" Margin="230,0,0,0" FontFamily="Zing Rust Demo Base" Background="#FFB9FCE0"></Button>
-            </WrapPanel>
+            
         </Grid>
         <Grid Panel.ZIndex="0" Grid.Column="1" Margin="10,19,10,40" Background="White">
             <Grid.RowDefinitions>
@@ -228,7 +225,7 @@
                 </TextBlock>
             </Button>
         </Grid>
-        <Border Grid.ColumnSpan="2" Panel.ZIndex="2" x:Name="PayBrd" Visibility="Collapsed" Background="#FFD7FBEC" BorderBrush="#FF04FF95" Height="500" Width="700" CornerRadius="20" BorderThickness="7">
+        <Border Grid.ColumnSpan="2" Panel.ZIndex="2" x:Name="PayBrd" Visibility="Visible" Background="#FFD7FBEC" BorderBrush="#FF04FF95" Height="500" Width="700" CornerRadius="20" BorderThickness="7">
             <StackPanel Margin="0,40,0,0">
                 <TextBlock x:Name="tbTypeOfPay" Text="Оплата наличными" HorizontalAlignment="Center" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center"></TextBlock>
                 <Border Background="White" CornerRadius="10" Height="60" Width="600" HorizontalAlignment="Left" Margin="20 30 0 0">

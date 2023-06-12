@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoffeStudio.EF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,4 +11,5 @@ namespace CoffeStudio.ClassHelper
     {
         public static EF.Entities Context { get; } = new EF.Entities();
     }
+
 }
