@@ -12,6 +12,7 @@ namespace CoffeStudio.EF
     }
     public partial class Order
     {
-        public decimal TotalPrice { get => OrderDish.Where(i=> i.IDOrder==IDOrder).Sum(i=> i.TotalPrice); }
+        public decimal TotalPrice { get => OrderDish.Where(i => i.IDOrder == IDOrder).Sum(i => i.TotalPrice); }
+        public string formattedDateTime {get=> DateTime.ToString("dd.MM.yyyy HH:mm:ss");}
     }
 }

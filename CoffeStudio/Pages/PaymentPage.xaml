@@ -225,7 +225,7 @@
                 </TextBlock>
             </Button>
         </Grid>
-        <Border Grid.ColumnSpan="2" Panel.ZIndex="2" x:Name="PayBrd" Visibility="Visible" Background="#FFD7FBEC" BorderBrush="#FF04FF95" Height="500" Width="700" CornerRadius="20" BorderThickness="7">
+        <Border Grid.ColumnSpan="2" Panel.ZIndex="2" x:Name="PayBrd" Visibility="Collapsed" Background="#FFD7FBEC" BorderBrush="#FF04FF95" Height="500" Width="700" CornerRadius="20" BorderThickness="7">
             <StackPanel Margin="0,40,0,0">
                 <TextBlock x:Name="tbTypeOfPay" Text="Оплата наличными" HorizontalAlignment="Center" FontSize="30" FontFamily="Zing Rust Demo Base" VerticalAlignment="Center"></TextBlock>
                 <Border Background="White" CornerRadius="10" Height="60" Width="600" HorizontalAlignment="Left" Margin="20 30 0 0">

@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\metli\source\repos\CoffeStudio\CoffeStudio\EF\Model1.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\Honor\source\repos\CoffeStudio\CoffeStudio\EF\Model1.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

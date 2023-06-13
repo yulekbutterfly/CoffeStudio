@@ -7,6 +7,21 @@
         mc:Ignorable="d"
         Title="BillPage" d:DesignHeight="690" d:DesignWidth="1024">
     <Grid Background="#FFB9FCE0">
+        <Border x:Name="DeleteBillBrd" Panel.ZIndex="2" Visibility="Collapsed" Grid.ColumnSpan="2" CornerRadius="0" BorderThickness="4" Width="550" Height="250" Background="White" BorderBrush="Black" >
+            <Grid>
+                <TextBlock Text="чек от" HorizontalAlignment="Left" Margin="20,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                <TextBlock x:Name="BillDateTb" Text="01.01.2001" HorizontalAlignment="Left" Margin="80,15,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                <TextBlock Text="состав:" HorizontalAlignment="Left" Margin="30,65,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                <ScrollViewer  HorizontalAlignment="Left" Margin="110,-20,0,62" MaxWidth="240" MaxHeight="30" Width="240">
+                    <TextBlock x:Name="ContainsTb" TextWrapping="Wrap" Text="один медведь, два медведя, три медведя, сто медведей, медвед, медвед2" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                </ScrollViewer>
+                <TextBlock Text="сумма:" HorizontalAlignment="Left" Margin="380,65,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                <TextBlock x:Name="SumTb" Text="99999,00" HorizontalAlignment="Left" Margin="450,65,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                <TextBlock Text="Хотите выполнить возврат?" HorizontalAlignment="Left" Margin="150,110,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                <Button x:Name="CancelBtn" Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="назад" Width="150" Height="45" Margin="40,150,0,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Left" Click="CancelBtn_Click"></Button>
+                <Button x:Name="OKBtn" Grid.Row="2" Style="{DynamicResource ButtonStyleMain}" Content="Да" Width="150" Height="45" Margin="0,150,40,0" FontSize="22" FontFamily="Zing Rust Demo Base" BorderBrush="Black" Background="#FFB9FCE0" HorizontalAlignment="Right" Click="OKBtn_Click"></Button>
+            </Grid>
+        </Border>
         <Grid Background="White" Width="766" Height="600" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -30,7 +45,7 @@
                 <Border Grid.Column="5" Background="#FFCBF0E0"/>
                 <Border Grid.Column="7" Background="#FFCBF0E0" Margin="2,0,21,0"/>
                 <ListView Grid.ColumnSpan="8" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch"
-                         x:Name="lvSeller" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,-2,0">
+                         x:Name="lvSeller" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,-2,0" MouseDoubleClick="lvSeller_MouseDoubleClick">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical"/>
@@ -65,16 +80,16 @@
                                     <ColumnDefinition Width="70"/>
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top" Margin="6,0,4,0">
-                                    <TextBlock Text="{Binding DateTime}" HorizontalAlignment="Center" FontSize="22" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3"></TextBlock>
+                                    <TextBlock Text="{Binding formattedDateTime}" HorizontalAlignment="Center" FontSize="12" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" Foreground="Black"/>
                                 </Border>
                                 <Border Grid.Column="2" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top" Margin="1,0,-1,0">
-                                    <TextBlock Text="{Binding FullName}" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding Employee.FullName}" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center" Foreground="Black"></TextBlock>
                                 </Border>
                                 <Border Grid.Column="4" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top" Margin="1,0,-1,0">
-                                    <TextBlock Text="{Binding Phone}" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding Employee.Phone}" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center" Foreground="Black"></TextBlock>
                                 </Border>
                                 <Border Grid.Column="6" BorderThickness="1" BorderBrush="Black" Height="32" VerticalAlignment="Top" Margin="2,0,20,0">
-                                    <TextBlock Text="{Binding Order.TotalPrice}" HorizontalAlignment="Center" FontSize="14" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding TotalPrice}" HorizontalAlignment="Center" FontSize="12" FontFamily="Zing Rust Demo Base" Grid.RowSpan="3" VerticalAlignment="Center" Foreground="Black"></TextBlock>
                                 </Border>
                             </Grid>
                         </DataTemplate>
@@ -82,5 +97,7 @@
                 </ListView>
             </Grid>
         </Grid>
+        <Border  Panel.ZIndex="1" Grid.ColumnSpan="2" x:Name="PlugBrd" Visibility="Collapsed" Background="#02000000"/>
+
     </Grid>
 </Page>
